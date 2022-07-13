@@ -1,0 +1,13 @@
+name: Plots
+version: '${project.version}'
+main: de.emilschlampp.plots.Plots
+api-version: 1.16
+commands:
+  plot:
+    aliases:
+      - p
+      - splots
+      - ep
+      - eplots
+      - gs
+      - grundstück
