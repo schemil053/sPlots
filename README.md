@@ -25,3 +25,16 @@ rand - Verändere den Rand von deinem Plot - splots.rand
 editrand - Verändere die Ränder bei rand - splots.editrand
 wall - Verändere die Wand von deinem Plot - splots.wand
 editwall - Verändere die Wände bei wall - splots.editwall
+  
+  
+  #API - Noch nicht fertig
+  Ihr könnt die Jar schon in euer Maven-Projekt reinshaden und die Events nutzen:
+  
+  '''
+  java
+  @EventHandler
+  public void onPlayerPlotEntry(PlayerEntryPlotEvent event) {
+  
+  }
+  
+  '''
