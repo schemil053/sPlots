@@ -3,9 +3,11 @@ Guten Tag,
 hier ist mein Plot-Plugin.
 
 ## Permissions:
-Admin-Perm (Überall abbauen, andere Plots verstellen): splots.admin
-Flag-Perms: splots.flag.<flag>
-Befehle: splots.<befehl>
+Admin-Perm (Überall abbauen, andere Plots verstellen): ```splots.admin```
+
+Flag-Perms: ```splots.flag.<flag>```
+
+Befehle: ```splots.<befehl>```
 
 ## Befehle:
 /plot <Befehl>
