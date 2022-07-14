@@ -6,6 +6,7 @@ import de.emilschlampp.plots.gen.main_gen;
 import de.emilschlampp.plots.listener.EntityListener;
 import de.emilschlampp.plots.listener.PlayerListener;
 import de.emilschlampp.plots.utils.GenConfigLoader;
+import de.emilschlampp.plots.utils.PlayerQuitClearList;
 import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -22,17 +23,6 @@ public final class Plots extends JavaPlugin {
 
     public static Plots instance;
 
-/*
-    public static void deleteDir(File path) {
-        for (File file : path.listFiles()) {
-            if (file.isDirectory())
-                deleteDir(file);
-            file.delete();
-        }
-        path.delete();
-    }
-
- */
 
     @Override
     public void onEnable() {
@@ -56,14 +46,18 @@ public final class Plots extends JavaPlugin {
 
         new Register(command);
 
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
-        getServer().getPluginManager().registerEvents(new EntityListener(), this);
-
-
+        registerListener();
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+
+    private void registerListener() {
+        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitClearList.EListen(), this);
     }
 }

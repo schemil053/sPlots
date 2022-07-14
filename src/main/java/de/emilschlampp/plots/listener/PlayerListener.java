@@ -7,6 +7,7 @@ import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.listener.events.PlayerEntryPlotEvent;
 import de.emilschlampp.plots.listener.events.PlayerExitPlotEvent;
 import de.emilschlampp.plots.utils.EComList;
+import de.emilschlampp.plots.utils.PlayerQuitClearList;
 import de.emilschlampp.plots.utils.math_sys;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.md_5.bungee.api.ChatMessageType;
@@ -344,10 +345,18 @@ public class PlayerListener implements Listener {
 
     private static List<UUID> timeonplot = new ArrayList<>();
 
+
+    private static PlayerQuitClearList sendid_title_data = new PlayerQuitClearList(true);
+
     @EventHandler
     public void onPlotEntry(PlayerEntryPlotEvent event) {
-        event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6Plot §b"+event.getPlotid()+" §6"));
-
+        if (StorageMain.hasOwner(event.getPlotid())) {
+            Plot plot = StorageMain.getPlot(event.getPlotid());
+            if(plot.isBooleanFlagSet("sendid")) {
+                sendid_title_data.add(event.getPlayer());
+                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6Plot §b" + event.getPlotid() + " §6"));
+            }
+        }
         if(StorageMain.hasOwner(event.getPlotid())) {
             Plot plot = StorageMain.getPlot(event.getPlotid());
             if(plot.getFlag("greeting") != null) {
@@ -403,7 +412,11 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlotLeave(PlayerExitPlotEvent event) {
-        event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6Straße"));
+        if(sendid_title_data.contains(event.getPlayer())) {
+            sendid_title_data.remove(event.getPlayer());
+            event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§6Straße"));
+        }
+
 
         if(StorageMain.hasOwner(event.getPlotid())) {
             Plot plot = StorageMain.getPlot(event.getPlotid());
