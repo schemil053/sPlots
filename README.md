@@ -50,4 +50,9 @@ Ihr könnt die Jar schon in euer Maven-Projekt reinshaden und die Events nutzen:
   
  }
   
+ @EventHandler
+ public void onPlayerPlotExit(PlayerExitPlotEvent event) {
+  
+ }
+  
  ```
