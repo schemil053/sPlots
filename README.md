@@ -30,11 +30,11 @@ editwall - Verändere die Wände bei wall - splots.editwall
   #API - Noch nicht fertig
   Ihr könnt die Jar schon in euer Maven-Projekt reinshaden und die Events nutzen:
   
-  '''
-  java
+ ```
+ java
   @EventHandler
   public void onPlayerPlotEntry(PlayerEntryPlotEvent event) {
   
   }
   
-  '''
+ ```
