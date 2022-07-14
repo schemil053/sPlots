@@ -44,7 +44,7 @@ editwall - Verändere die Wände bei wall - ```splots.editwall```
   
   
 ## API - Noch nicht fertig
-Ihr könnt die Jar schon in euer Maven-Projekt reinshaden und die Events nutzen:
+Ihr könnt die Jar schon in euer Maven-Projekt hinzufügen und die Events nutzen:
   
 ```java
  @EventHandler
