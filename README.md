@@ -2,12 +2,12 @@
 Guten Tag,
 hier ist mein Plot-Plugin.
 
-#Permissions:
+## Permissions:
 Admin-Perm (Überall abbauen, andere Plots verstellen): splots.admin
 Flag-Perms: splots.flag.<flag>
 Befehle: splots.<befehl>
 
-#Befehle:
+## Befehle:
 /plot <Befehl>
 
 home - Teleportiere dich zu deinem Plot
@@ -27,7 +27,7 @@ wall - Verändere die Wand von deinem Plot - splots.wand
 editwall - Verändere die Wände bei wall - splots.editwall
   
   
-#API - Noch nicht fertig
+## API - Noch nicht fertig
 Ihr könnt die Jar schon in euer Maven-Projekt reinshaden und die Events nutzen:
   
 ```java
