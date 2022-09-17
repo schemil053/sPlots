@@ -2,6 +2,9 @@
 Guten Tag,
 hier ist mein Plot-Plugin.
 
+Du kannst es von Spigotmc herunterladen:
+https://www.spigotmc.org/resources/splots.103344/
+
 ## Permissions:
 Admin-Perm (Überall abbauen, andere Plots verstellen, Zugriff auf das Backup-System): ```splots.admin```
 
@@ -41,6 +44,8 @@ editrand - Verändere die Ränder bei rand - ```splots.editrand```
 wall - Verändere die Wand von deinem Plot - ```splots.wand```
   
 editwall - Verändere die Wände bei wall - ```splots.editwall```
+
+backup - Backuppe Plots - ```splots.admin```
   
   
 ## API - Noch nicht fertig
