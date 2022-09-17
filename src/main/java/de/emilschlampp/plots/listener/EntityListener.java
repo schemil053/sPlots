@@ -1,5 +1,6 @@
 package de.emilschlampp.plots.listener;
 
+import de.emilschlampp.plots.Plots;
 import de.emilschlampp.plots.Storage.Plot;
 import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.utils.math_sys;
@@ -7,7 +8,6 @@ import io.papermc.paper.event.entity.EntityMoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LightningStrike;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
@@ -17,6 +17,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.EntityTeleportEvent;
+import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 
 import java.util.Arrays;
@@ -90,6 +91,36 @@ public class EntityListener implements Listener {
         if(!StorageMain.getPlot(math_sys.getPlot(event.getLightning().getLocation())).isBooleanFlagSet("lightningstrike")) {
             event.setCancelled(true);
             return;
+        }
+    }
+
+    @EventHandler
+    public void onVehicleMove(VehicleMoveEvent event) {
+        if(!math_sys.isW(event.getTo().getWorld())) {
+            return;
+        }
+        if(whitelist.contains(event.getVehicle().getType())) {
+            return;
+        }
+        if(math_sys.isroad(event.getTo()) && math_sys.isroad(event.getFrom())) {
+            Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
+                event.getVehicle().teleport(event.getFrom());
+            }, 1);
+            return;
+        }
+        if(!StorageMain.hasOwner(math_sys.getPlot(event.getTo()))) {
+            Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
+                event.getVehicle().teleport(event.getFrom());
+            }, 1);
+            return;
+        }
+        if(event.getVehicle().getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)) {
+            if(!StorageMain.getPlot(math_sys.getPlot(event.getTo())).isBooleanFlagSet("mobspawn")) {
+                Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
+                    event.getVehicle().teleport(event.getFrom());
+                }, 1);
+                return;
+            }
         }
     }
 
