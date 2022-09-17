@@ -3,7 +3,7 @@ Guten Tag,
 hier ist mein Plot-Plugin.
 
 ## Permissions:
-Admin-Perm (Überall abbauen, andere Plots verstellen): ```splots.admin```
+Admin-Perm (Überall abbauen, andere Plots verstellen, Zugriff auf das Backup-System): ```splots.admin```
 
 Flag-Perms: ```splots.flag.<flag>```
 
