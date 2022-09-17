@@ -96,31 +96,22 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onVehicleMove(VehicleMoveEvent event) {
-        if(!math_sys.isW(event.getTo().getWorld())) {
-            return;
-        }
         if(whitelist.contains(event.getVehicle().getType())) {
             return;
         }
-        if(math_sys.isroad(event.getTo()) && math_sys.isroad(event.getFrom())) {
+        if(!math_sys.isW(event.getTo().getWorld())) {
+            return;
+        }
+        if(event.getTo().getBlock().equals(event.getFrom().getBlock())) {
+            return;
+        }
+        if(math_sys.isroad(event.getFrom()) && math_sys.isroad(event.getTo())) {
+            return;
+        }
+        if(math_sys.isroad(event.getTo()) && (!math_sys.isroad(event.getFrom()))) {
             Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
                 event.getVehicle().teleport(event.getFrom());
             }, 1);
-            return;
-        }
-        if(!StorageMain.hasOwner(math_sys.getPlot(event.getTo()))) {
-            Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
-                event.getVehicle().teleport(event.getFrom());
-            }, 1);
-            return;
-        }
-        if(event.getVehicle().getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)) {
-            if(!StorageMain.getPlot(math_sys.getPlot(event.getTo())).isBooleanFlagSet("mobspawn")) {
-                Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
-                    event.getVehicle().teleport(event.getFrom());
-                }, 1);
-                return;
-            }
         }
     }
 
