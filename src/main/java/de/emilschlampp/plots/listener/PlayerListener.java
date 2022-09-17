@@ -9,7 +9,6 @@ import de.emilschlampp.plots.listener.events.PlayerExitPlotEvent;
 import de.emilschlampp.plots.utils.EComList;
 import de.emilschlampp.plots.utils.PlayerQuitClearList;
 import de.emilschlampp.plots.utils.math_sys;
-import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -332,36 +331,6 @@ public class PlayerListener implements Listener {
     }
 
 
-    @EventHandler
-    public void onPistonExtend(BlockPistonExtendEvent event) {
-        if(!math_sys.isW(event.getBlock().getWorld())) {
-            return;
-        }
-        if(math_sys.isroad(event.getBlock().getLocation())) {
-            return;
-        }
-        for(Block block : event.getBlocks()) {
-            if(math_sys.isroad(block.getLocation())) {
-                event.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPistonRetract(BlockPistonRetractEvent event) {
-        if(!math_sys.isW(event.getBlock().getWorld())) {
-            return;
-        }
-        if(math_sys.isroad(event.getBlock().getLocation())) {
-            return;
-        }
-        for(Block block : event.getBlocks()) {
-            if(math_sys.isroad(block.getLocation())) {
-                event.setCancelled(true);
-            }
-        }
-    }
-
 
     @EventHandler
     public void onPVP(EntityDamageByEntityEvent event) {
@@ -380,6 +349,9 @@ public class PlayerListener implements Listener {
             if(StorageMain.hasOwner(plot)) {
                 if(event.getEntity() instanceof Player) {
                     if(event.getDamager() instanceof Player) {
+                        if(event.getDamager().hasPermission("splots.admin")) {
+                            return;
+                        }
                         if(!StorageMain.getPlot(plot).isBooleanFlagSet("pvp")) {
                             event.setCancelled(true);
                         }
@@ -389,6 +361,11 @@ public class PlayerListener implements Listener {
                         }
                     }
                 } else {
+                    if(event.getDamager() instanceof Player) {
+                        if(event.getDamager().hasPermission("splots.admin")) {
+                            return;
+                        }
+                    }
                     if(!StorageMain.getPlot(plot).isBooleanFlagSet("pve")) {
                         event.setCancelled(true);
                     }

@@ -11,6 +11,8 @@ import org.bukkit.entity.LightningStrike;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -27,6 +29,36 @@ public class EntityListener implements Listener {
             return;
         }
         removeBlocks(event.blockList());
+    }
+
+    @EventHandler
+    public void onPistonExtend(BlockPistonExtendEvent event) {
+        if(!math_sys.isW(event.getBlock().getWorld())) {
+            return;
+        }
+        if(math_sys.isroad(event.getBlock().getLocation())) {
+            return;
+        }
+        for(Block block : event.getBlocks()) {
+            if(math_sys.isroad(block.getLocation())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPistonRetract(BlockPistonRetractEvent event) {
+        if(!math_sys.isW(event.getBlock().getWorld())) {
+            return;
+        }
+        if(math_sys.isroad(event.getBlock().getLocation())) {
+            return;
+        }
+        for(Block block : event.getBlocks()) {
+            if(math_sys.isroad(block.getLocation())) {
+                event.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler
