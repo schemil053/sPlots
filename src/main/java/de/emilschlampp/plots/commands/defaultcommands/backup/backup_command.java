@@ -1,11 +1,13 @@
 package de.emilschlampp.plots.commands.defaultcommands.backup;
 
+import de.emilschlampp.plots.Plots;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.utils.BlockSaver;
 import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +22,20 @@ public class backup_command extends PlotSubCommand {
         if(args.length == 1) {
             return Arrays.asList("save", "load");
         }
+        if(args.length == 2) {
+            List<String> a = new ArrayList<>();
+            File file = new File(Plots.instance.getDataFolder(), "backups");
+            if(!file.isDirectory()) {
+                file.mkdirs();
+            }
+            if(!file.isDirectory()) {
+                return new ArrayList<>();
+            }
+            for(File b : file.listFiles()) {
+                a.add(b.getName().replace(".ecopy",""));
+            }
+            return a;
+        }
         return new ArrayList<>();
     }
 
@@ -32,9 +48,17 @@ public class backup_command extends PlotSubCommand {
         if(args.length == 0) {
             player.sendMessage(PREFIX+"/plot backup save <name>");
             player.sendMessage(PREFIX+"/plot backup load <name>");
+            player.sendMessage(PREFIX+"/plot backup delete <name>");
             return;
         }
         if(args.length == 2) {
+            if(args[0].equals("delete")) {
+                player.sendMessage(PREFIX+"Gelöscht!");
+                File file = new File(Plots.instance.getDataFolder(), "backups");
+                file.mkdirs();
+                file = new File(file, args[1]+".ecopy");
+                file.delete();
+            }
             if(args[0].equals("save")) {
                 Location location = math_sys.getLoc(math_sys.getPlot(player.getLocation()));
                 location.add(1, 0, 1);
