@@ -78,7 +78,7 @@ public class GenConfigLoader {
                 }
             }
             if(step == 0) {
-                sender.sendMessage("§6Woraus sollen die Plots bestehen?");
+                sender.sendMessage("§6Woraus sollen die Plots bestehen? Standard: "+math_sys.PLOTFLOOR.getKey().getKey());
                 sender.sendMessage("§a/plot <material>");
                 step++;
                 return true;
@@ -90,7 +90,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("PLOTFLOOR", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Was soll der oberste Block von den Plots sein?");
+                    sender.sendMessage("§6Was soll der oberste Block von den Plots sein? Standard: "+math_sys.PLOTFLOORTOP.getKey().getKey());
                     step++;
                 } else {
                     sender.sendMessage("§6Woraus sollen die Plots bestehen?");
@@ -105,7 +105,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("PLOTFLOORTOP", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Woraus sollen die Straßen bestehen?");
+                    sender.sendMessage("§6Woraus sollen die Straßen bestehen? Standard: "+math_sys.STREET.getKey().getKey());
                     step++;
                 } else {
                     sender.sendMessage("§6Was soll der oberste Block von den Plots sein?");
@@ -120,7 +120,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("STREET", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Woraus sollen die Claim-Ränder bestehen?");
+                    sender.sendMessage("§6Woraus sollen die Claim-Ränder bestehen? Standard: "+math_sys.BORDERBLOCKCLAIMED.getKey().getKey());
                     step++;
                 } else {
                     sender.sendMessage("§6Woraus sollen die Straßen bestehen?");
@@ -135,7 +135,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("BORDERBLOCKCLAIMED", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Woraus sollen die normalen Ränder bestehen?");
+                    sender.sendMessage("§6Woraus sollen die normalen Ränder bestehen? Standard: "+math_sys.BORDERBLOCK.getKey().getKey());
                     step++;
                 } else {
                     sender.sendMessage("§6Woraus sollen die Claim-Ränder bestehen?");
@@ -150,7 +150,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("BORDERBLOCK", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Woraus sollen die Claim-Wände bestehen?");
+                    sender.sendMessage("§6Woraus sollen die Claim-Wände bestehen? Standard: "+math_sys.WALLBLOCKCLAIMED.getKey().getKey());
                     step++;
                 } else {
                     sender.sendMessage("§6Woraus sollen die normalen Ränder bestehen?");
@@ -165,7 +165,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("WALLBLOCKCLAIMED", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Woraus sollen die normalen Wände bestehen?");
+                    sender.sendMessage("§6Woraus sollen die normalen Wände bestehen? Standard: "+math_sys.WALLBLOCK.getKey().getKey());
                     step++;
                 } else {
                     sender.sendMessage("§6Woraus sollen die Claim-Wände bestehen?");
@@ -180,7 +180,7 @@ public class GenConfigLoader {
                         return true;
                     }
                     yamlConfiguration.set("WALLBLOCK", allblocks.get(args[0]).name());
-                    sender.sendMessage("§6Wie breit soll die Straße sein?");
+                    sender.sendMessage("§6Wie breit soll die Straße sein? Standard: "+math_sys.rw);
                     step++;
                 } else {
                     sender.sendMessage("§6Woraus sollen die normalen Wände bestehen?");
@@ -192,7 +192,7 @@ public class GenConfigLoader {
                 if(args.length == 1) {
                     try {
                         yamlConfiguration.set("rw", Integer.parseInt(args[0]));
-                        sender.sendMessage("§6Wie breit sollen die Plots sein?");
+                        sender.sendMessage("§6Wie breit sollen die Plots sein? Standard: "+math_sys.pw);
                         step++;
                     } catch (Exception e) {
                         sender.sendMessage("§cUngültige Zahl!");
@@ -208,7 +208,7 @@ public class GenConfigLoader {
                 if(args.length == 1) {
                     try {
                         yamlConfiguration.set("pw", Integer.parseInt(args[0]));
-                        sender.sendMessage("§6Wie hoch soll die Straße und die Plots sein?");
+                        sender.sendMessage("§6Wie hoch soll die Straße und die Plots sein? Standard: "+math_sys.pheight);
                         step++;
                     } catch (Exception e) {
                         sender.sendMessage("§cUngültige Zahl!");
@@ -224,7 +224,7 @@ public class GenConfigLoader {
                 if(args.length == 1) {
                     try {
                         yamlConfiguration.set("pheight", Integer.parseInt(args[0]));
-                        sender.sendMessage("§6Wie soll die Welt heißen?");
+                        sender.sendMessage("§6Wie soll die Welt heißen? Standard: "+math_sys.plotworld);
                         step++;
                     } catch (Exception e) {
                         sender.sendMessage("§cUngültige Zahl!");
