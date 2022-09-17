@@ -20,7 +20,7 @@ public class backup_command extends PlotSubCommand {
     @Override
     public List<String> tabComplete(Player player, String[] args) {
         if(args.length == 1) {
-            return Arrays.asList("save", "load");
+            return Arrays.asList("save", "load", "delete");
         }
         if(args.length == 2) {
             List<String> a = new ArrayList<>();
