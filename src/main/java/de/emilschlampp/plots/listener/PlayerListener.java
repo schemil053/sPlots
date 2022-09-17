@@ -18,10 +18,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 
@@ -335,8 +332,35 @@ public class PlayerListener implements Listener {
     }
 
 
+    @EventHandler
+    public void onPistonExtend(BlockPistonExtendEvent event) {
+        if(!math_sys.isW(event.getBlock().getWorld())) {
+            return;
+        }
+        if(math_sys.isroad(event.getBlock().getLocation())) {
+            return;
+        }
+        for(Block block : event.getBlocks()) {
+            if(math_sys.isroad(block.getLocation())) {
+                event.setCancelled(true);
+            }
+        }
+    }
 
-
+    @EventHandler
+    public void onPistonRetract(BlockPistonRetractEvent event) {
+        if(!math_sys.isW(event.getBlock().getWorld())) {
+            return;
+        }
+        if(math_sys.isroad(event.getBlock().getLocation())) {
+            return;
+        }
+        for(Block block : event.getBlocks()) {
+            if(math_sys.isroad(block.getLocation())) {
+                event.setCancelled(true);
+            }
+        }
+    }
 
 
     @EventHandler
