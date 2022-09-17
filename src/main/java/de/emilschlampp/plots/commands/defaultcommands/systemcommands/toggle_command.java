@@ -1,6 +1,7 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.Storage.StorageMain;
+import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class toggle_command extends PlotSubCommand {
+public class toggle_command extends PlotSubCommand implements HelpCommandInterface {
     public toggle_command() {
         super("toggle", "splots.toggle", "tog");
         if(!togglevalues.isEmpty()) {
@@ -78,6 +79,11 @@ public class toggle_command extends PlotSubCommand {
         } else {
             player.sendMessage(PREFIX+"Syntax: /plot toggle <wert>");
         }
+    }
+
+    @Override
+    public String getHelp() {
+        return "Verändert die angegebene Einstellung.";
     }
 
     public static class ToggleValue {

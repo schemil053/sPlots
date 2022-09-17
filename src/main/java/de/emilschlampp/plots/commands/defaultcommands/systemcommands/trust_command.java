@@ -2,6 +2,7 @@ package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.Storage.Plot;
 import de.emilschlampp.plots.Storage.StorageMain;
+import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.utils.OfflineGetter;
 import de.emilschlampp.plots.utils.math_sys;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class trust_command extends PlotSubCommand {
+public class trust_command extends PlotSubCommand implements HelpCommandInterface {
     public trust_command() {
         super("trust", "splots.trust", "t");
     }
@@ -53,7 +54,7 @@ public class trust_command extends PlotSubCommand {
             if(plot.getFlag("buildall") != null) {
                 if(plot.getFlag("buildall").getValue() != null) {
                     if(plot.getFlag("buildall").getValue().equalsIgnoreCase("true")) {
-                        player.sendMessage(PREFIX+"Alle Spieler ist bereits vertraut!");
+                        player.sendMessage(PREFIX+"Alle Spieler sind bereits vertraut!");
                         return;
                     } else {
                         plot.getFlag("buildall").setValue("true");
@@ -86,5 +87,10 @@ public class trust_command extends PlotSubCommand {
         plot.setTrusted(trusted);
         plot.save();
         player.sendMessage(PREFIX+"Du hast diesen Spieler erfolgreich vertraut.");
+    }
+
+    @Override
+    public String getHelp() {
+        return "Vertraut einen Spieler auf deinem Grundstück.\nUm alle Spieler zu vertrauen, gebe als Spieler * an.";
     }
 }

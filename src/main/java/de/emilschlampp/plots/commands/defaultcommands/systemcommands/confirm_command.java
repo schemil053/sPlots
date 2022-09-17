@@ -1,6 +1,7 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.Plots;
+import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,7 +9,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
-public class confirm_command extends PlotSubCommand {
+public class confirm_command extends PlotSubCommand implements HelpCommandInterface {
     public confirm_command() {
         super("confirm", "splots.confirm");
     }
@@ -52,5 +53,10 @@ public class confirm_command extends PlotSubCommand {
         }, 30*20);
         map1.put(player.getUniqueId(), t);
         map.put(player.getUniqueId(), task);
+    }
+
+    @Override
+    public String getHelp() {
+        return "Bestätigt die Aktion, lässt sich mit /plot toggle confirm deaktivieren.";
     }
 }

@@ -2,6 +2,7 @@ package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.Storage.Plot;
 import de.emilschlampp.plots.Storage.StorageMain;
+import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.utils.OfflineGetter;
 import de.emilschlampp.plots.utils.math_sys;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class untrust_command extends PlotSubCommand {
+public class untrust_command extends PlotSubCommand implements HelpCommandInterface {
     public untrust_command() {
         super("untrust", "splots.untrust", "unt");
     }
@@ -83,5 +84,10 @@ public class untrust_command extends PlotSubCommand {
         plot.setTrusted(trusted);
         plot.save();
         player.sendMessage(PREFIX+"Du hast diesen Spieler erfolgreich aus den vertrauten Spielern entfernt.");
+    }
+
+    @Override
+    public String getHelp() {
+        return "Entferne einen vertrauten Spieler von deinem Grundstück.";
     }
 }

@@ -58,6 +58,10 @@ public class help_command extends PlotSubCommand {
                     b = PlotMainCommand.getCommand(b).getName();
                 }
             }
+            if(!PlotMainCommand.getCommand(b).canuse(player)) {
+                player.sendMessage(PREFIX+"Keine Berechtigung.");
+                return;
+            }
             for(String a : helpmap.getOrDefault(b, "Hilfe nicht gefunden!").split("\n")) {
                 player.sendMessage(PREFIX +a);
             }

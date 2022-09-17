@@ -1,6 +1,7 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.Storage.StorageMain;
+import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class home_command extends PlotSubCommand {
+public class home_command extends PlotSubCommand implements HelpCommandInterface {
 
     public home_command() {
         super("home", "splots.home", Arrays.asList("h"));
@@ -52,5 +53,10 @@ public class home_command extends PlotSubCommand {
 
         player.teleport(StorageMain.getPlot(StorageMain.getPlots(player.getUniqueId()).get(id-1)).getTPLocation());
         player.sendMessage(PREFIX+"Du wurdest teleportiert!");
+    }
+
+    @Override
+    public String getHelp() {
+        return "Teleportiert dich zu deinem angegebenen Grundstück.";
     }
 }

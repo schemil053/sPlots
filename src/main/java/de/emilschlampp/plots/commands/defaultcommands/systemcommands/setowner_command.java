@@ -2,6 +2,7 @@ package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.Storage.Plot;
 import de.emilschlampp.plots.Storage.StorageMain;
+import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.utils.ObjectPair;
 import de.emilschlampp.plots.utils.OfflineGetter;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class setowner_command extends PlotSubCommand {
+public class setowner_command extends PlotSubCommand implements HelpCommandInterface {
     public setowner_command() {
         super("setowner","splots.setowner", "so");
     }
@@ -56,5 +57,10 @@ public class setowner_command extends PlotSubCommand {
         plot.setOwner(arg.getUniqueId());
         plot.save();
         player.sendMessage(PREFIX+"Du hast den Besitzer gesetzt!");
+    }
+
+    @Override
+    public String getHelp() {
+        return "Verändert den Besitzer von dem Grundstück auf dem du stehst.";
     }
 }
