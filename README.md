@@ -3,9 +3,11 @@ Guten Tag,
 hier ist mein Plot-Plugin.
 
 ## Permissions:
-Admin-Perm (Überall abbauen, andere Plots verstellen): splots.admin
-Flag-Perms: splots.flag.<flag>
-Befehle: splots.<befehl>
+Admin-Perm (Überall abbauen, andere Plots verstellen): ```splots.admin```
+
+Flag-Perms: ```splots.flag.<flag>```
+
+Befehle: ```splots.<befehl>```
 
 ## Befehle:
 /plot <Befehl>
@@ -42,7 +44,7 @@ editwall - Verändere die Wände bei wall - ```splots.editwall```
   
   
 ## API - Noch nicht fertig
-Ihr könnt die Jar schon in euer Maven-Projekt reinshaden und die Events nutzen:
+Ihr könnt die Jar schon in euer Maven-Projekt hinzufügen und die Events nutzen:
   
 ```java
  @EventHandler
