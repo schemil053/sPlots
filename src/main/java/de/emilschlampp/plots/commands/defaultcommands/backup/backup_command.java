@@ -37,7 +37,7 @@ public class backup_command extends PlotSubCommand {
         if(args.length == 2) {
             if(args[0].equals("save")) {
                 Location location = math_sys.getLoc(math_sys.getPlot(player.getLocation()));
-                Location location1 = location.clone().add(math_sys.pw, 0, math_sys.pw);
+                Location location1 = location.clone().add(math_sys.pw-1, 0, math_sys.pw-1);
                 location.setY(location.getWorld().getMinHeight());
                 location1.setY(location1.getWorld().getMaxHeight());
                 player.sendMessage(PREFIX+"§aKopiere...");
