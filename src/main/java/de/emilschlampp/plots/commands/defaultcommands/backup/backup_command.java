@@ -25,10 +25,10 @@ public class backup_command extends PlotSubCommand {
 
     @Override
     public void execute(Player player, String[] args) {
-        player.sendMessage(PREFIX+"§cDies ist Experimentell!");
         if(!isPlotAdmin(player)) {
             return;
         }
+        player.sendMessage(PREFIX+"§cDies ist Experimentell!");
         if(args.length == 0) {
             player.sendMessage(PREFIX+"/plot backup save <name>");
             player.sendMessage(PREFIX+"/plot backup load <name>");
