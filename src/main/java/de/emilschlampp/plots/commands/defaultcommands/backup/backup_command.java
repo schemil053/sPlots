@@ -47,6 +47,7 @@ public class backup_command extends PlotSubCommand {
             }
             if(args[0].equals("load")) {
                 Location location = math_sys.getLoc(math_sys.getPlot(player.getLocation()));
+                location.add(1, 0, 1);
                 location.setY(location.getWorld().getMinHeight());
                 player.sendMessage(PREFIX+"§aEinfügen...");
                 BlockSaver.paste(args[1], location);
