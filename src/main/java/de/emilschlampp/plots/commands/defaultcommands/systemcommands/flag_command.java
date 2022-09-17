@@ -29,6 +29,8 @@ public class flag_command extends PlotSubCommand {
         flags.add(new Plot.Flag("greeting", Plot.Flag.FlagType.STRING));
         flags.add(new Plot.Flag("farewell", Plot.Flag.FlagType.STRING));
         flags.add(new Plot.Flag("sendid", Plot.Flag.FlagType.BOOLEAN));
+        flags.add(new Plot.Flag("pvp", Plot.Flag.FlagType.BOOLEAN));
+        flags.add(new Plot.Flag("pve", Plot.Flag.FlagType.BOOLEAN));
     }
 
     public static List<Plot.Flag> getFlags() {

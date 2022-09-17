@@ -15,12 +15,14 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 
 import java.util.*;
@@ -337,9 +339,39 @@ public class PlayerListener implements Listener {
 
 
 
-
-
-
+    @EventHandler
+    public void onPVP(EntityDamageByEntityEvent event) {
+        if(!math_sys.isW(event.getEntity().getWorld())) {
+            return;
+        }
+        if(math_sys.isroad(event.getEntity().getLocation())) {
+            if(event.getDamager() instanceof Player) {
+                if(event.getDamager().hasPermission("splots.admin")) {
+                    return;
+                }
+            }
+            event.setCancelled(true);
+        } else {
+            String plot = math_sys.getPlot(event.getEntity().getLocation());
+            if(StorageMain.hasOwner(plot)) {
+                if(event.getEntity() instanceof Player) {
+                    if(event.getDamager() instanceof Player) {
+                        if(!StorageMain.getPlot(plot).isBooleanFlagSet("pvp")) {
+                            event.setCancelled(true);
+                        }
+                    } else {
+                        if(!StorageMain.getPlot(plot).isBooleanFlagSet("pve")) {
+                            event.setCancelled(true);
+                        }
+                    }
+                } else {
+                    if(!StorageMain.getPlot(plot).isBooleanFlagSet("pve")) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
+        }
+    }
 
 
 
