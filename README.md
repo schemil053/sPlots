@@ -44,6 +44,8 @@ editrand - Verändere die Ränder bei rand - ```splots.editrand```
 wall - Verändere die Wand von deinem Plot - ```splots.wand```
   
 editwall - Verändere die Wände bei wall - ```splots.editwall```
+
+backup - Backuppe Plots - ```splots.admin```
   
   
 ## API - Noch nicht fertig
