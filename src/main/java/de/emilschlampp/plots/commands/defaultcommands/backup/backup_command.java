@@ -26,7 +26,7 @@ public class backup_command extends PlotSubCommand {
     @Override
     public void execute(Player player, String[] args) {
         player.sendMessage(PREFIX+"§cDies ist Experimentell!");
-        if(!isOnPlotCheck(player)) {
+        if(!isPlotAdmin(player)) {
             return;
         }
         if(args.length == 0) {
@@ -37,6 +37,7 @@ public class backup_command extends PlotSubCommand {
         if(args.length == 2) {
             if(args[0].equals("save")) {
                 Location location = math_sys.getLoc(math_sys.getPlot(player.getLocation()));
+                location.add(1, 0, 1);
                 Location location1 = location.clone().add(math_sys.pw-1, 0, math_sys.pw-1);
                 location.setY(location.getWorld().getMinHeight());
                 location1.setY(location1.getWorld().getMaxHeight());

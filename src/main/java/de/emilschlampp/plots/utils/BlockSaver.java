@@ -32,8 +32,8 @@ public class BlockSaver {
                 BlockData data = Bukkit.createBlockData(d[4]);
 
                 World w = location.getWorld();
-                w.getBlockAt(x, y, z).setType(Material.AIR, false);
-                w.getBlockAt(x, y, z).setType(m, false);
+     //           w.getBlockAt(x, y, z).setType(Material.AIR, false);
+     //           w.getBlockAt(x, y, z).setType(m, false);
                 w.getBlockAt(x, y, z).setBlockData(data, false);
 
 
