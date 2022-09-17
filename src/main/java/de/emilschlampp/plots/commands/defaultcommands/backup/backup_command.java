@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class backup_command extends PlotSubCommand {
@@ -16,6 +17,9 @@ public class backup_command extends PlotSubCommand {
 
     @Override
     public List<String> tabComplete(Player player, String[] args) {
+        if(args.length == 1) {
+            return Arrays.asList("save", "load");
+        }
         return new ArrayList<>();
     }
 

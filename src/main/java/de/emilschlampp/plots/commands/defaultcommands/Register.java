@@ -2,6 +2,7 @@ package de.emilschlampp.plots.commands.defaultcommands;
 
 import de.emilschlampp.plots.commands.PlotMainCommand;
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.commands.defaultcommands.backup.backup_command;
 import de.emilschlampp.plots.commands.defaultcommands.border.editrand_command;
 import de.emilschlampp.plots.commands.defaultcommands.border.editwall_command;
 import de.emilschlampp.plots.commands.defaultcommands.border.rand_command;
@@ -59,9 +60,7 @@ public class Register {
         register(new tpchunk_command());
 
 
-
-
-
+        register(new backup_command());
 
 
     }
