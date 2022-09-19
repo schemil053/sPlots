@@ -10,7 +10,11 @@ import org.bukkit.block.data.BlockData;
 import java.io.*;
 
 public class BlockSaver {
+
     public static void paste(String name, Location location) {
+        paste(name, location, "");
+    }
+    public static void paste(String name, Location location, String plot) {
         File file = new File(Plots.instance.getDataFolder(), "backups");
         file.mkdirs();
         file = new File(file, name+".ecopy");
@@ -34,7 +38,9 @@ public class BlockSaver {
                 World w = location.getWorld();
      //           w.getBlockAt(x, y, z).setType(Material.AIR, false);
      //           w.getBlockAt(x, y, z).setType(m, false);
-                w.getBlockAt(x, y, z).setBlockData(data, false);
+                if(plot.equals("") || math_sys.getPlot(x, z).equals(plot)) {
+                    w.getBlockAt(x, y, z).setBlockData(data, false);
+                }
 
 
             }
