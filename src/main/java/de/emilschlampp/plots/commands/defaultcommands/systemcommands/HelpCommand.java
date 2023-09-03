@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HelpCommand extends PlotSubCommand {
+    private static final Map<String, String> helpmap = new HashMap<>();
     public HelpCommand() {
         super("help", "splots.help", "?");
 
@@ -24,8 +25,6 @@ public class HelpCommand extends PlotSubCommand {
                         "---------- Hilfe ----------"
                 );
     }
-
-    private static Map<String, String> helpmap = new HashMap<>();
 
     public static void setHelp(String help, String command) {
         PlotSubCommand command1 = PlotMainCommand.getCommand(command);
