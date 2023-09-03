@@ -1,19 +1,18 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.ObjectPair;
-import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class claim_command extends PlotSubCommand implements HelpCommandInterface {
-    public claim_command() {
+public class ClaimCommand extends PlotSubCommand implements HelpCommandInterface {
+    public ClaimCommand() {
         super("claim", "splots.claim", "c");
     }
 
@@ -27,7 +26,7 @@ public class claim_command extends PlotSubCommand implements HelpCommandInterfac
         if(!isOnPlotCheck(player)) {
             return;
         }
-        if(StorageMain.hasOwner(math_sys.getPlot(player.getLocation()))) {
+        if(StorageMain.hasOwner(MathSys.getPlot(player.getLocation()))) {
             player.sendMessage(PREFIX+"Dieses Plot wurde bereits beansprucht.");
             return;
         }
@@ -35,7 +34,7 @@ public class claim_command extends PlotSubCommand implements HelpCommandInterfac
             player.sendMessage(PREFIX+"Du kannst keine weiteren Plots besitzen.");
             return;
         }
-        ObjectPair<Integer, Integer> pair = math_sys.getPlot(math_sys.getPlot(player.getLocation()));
+        ObjectPair<Integer, Integer> pair = MathSys.getPlot(MathSys.getPlot(player.getLocation()));
         Plot plot = new Plot(pair.a, pair.b, player.getUniqueId(), new ArrayList<>(), new ArrayList<>());
         plot.setClaimBorder();
         plot.save();

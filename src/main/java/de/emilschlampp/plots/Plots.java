@@ -2,21 +2,16 @@ package de.emilschlampp.plots;
 
 import de.emilschlampp.plots.commands.PlotMainCommand;
 import de.emilschlampp.plots.commands.defaultcommands.Register;
-import de.emilschlampp.plots.gen.main_gen;
+import de.emilschlampp.plots.gen.PlotGenerator;
 import de.emilschlampp.plots.listener.EntityListener;
 import de.emilschlampp.plots.listener.PlayerListener;
 import de.emilschlampp.plots.utils.GenConfigLoader;
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.PlayerQuitClearList;
-import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.Objects;
 
 public final class Plots extends JavaPlugin {
@@ -35,8 +30,8 @@ public final class Plots extends JavaPlugin {
         GenConfigLoader.loadData();
 
         // Plugin startup logic
-        Bukkit.createWorld(new WorldCreator(math_sys.plotworld)
-                .generateStructures(false).generator(new main_gen()));
+        Bukkit.createWorld(new WorldCreator(MathSys.plotworld)
+                .generateStructures(false).generator(new PlotGenerator()));
 
 
         PlotMainCommand command = new PlotMainCommand();

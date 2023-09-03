@@ -3,7 +3,6 @@ package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 import de.emilschlampp.plots.commands.PlotMainCommand;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class help_command extends PlotSubCommand {
-    public help_command() {
+public class HelpCommand extends PlotSubCommand {
+    public HelpCommand() {
         super("help", "splots.help", "?");
 
 

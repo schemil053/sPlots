@@ -1,11 +1,10 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
-import de.emilschlampp.plots.utils.OfflineGetter;
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
+import de.emilschlampp.plots.utils.MathSys;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class untrust_command extends PlotSubCommand implements HelpCommandInterface {
-    public untrust_command() {
+public class UntrustCommand extends PlotSubCommand implements HelpCommandInterface {
+    public UntrustCommand() {
         super("untrust", "splots.untrust", "unt");
     }
 
@@ -22,9 +21,9 @@ public class untrust_command extends PlotSubCommand implements HelpCommandInterf
     public List<String> tabComplete(Player player, String[] args) {
         if(args.length < 2) {
             List<String> a = new ArrayList<>();
-            if(!math_sys.isroad(player.getLocation())) {
-                if(StorageMain.hasOwner(math_sys.getPlot(player.getLocation()))) {
-                    Plot plot = StorageMain.getPlot(math_sys.getPlot(player.getLocation()));
+            if(!MathSys.isroad(player.getLocation())) {
+                if(StorageMain.hasOwner(MathSys.getPlot(player.getLocation()))) {
+                    Plot plot = StorageMain.getPlot(MathSys.getPlot(player.getLocation()));
                     for(UUID ab : plot.getTrusted()) {
                         a.add(Bukkit.getOfflinePlayer(ab).getName());
                     }
@@ -47,12 +46,12 @@ public class untrust_command extends PlotSubCommand implements HelpCommandInterf
         if(!isOnPlotCheck(player)) {
             return;
         }
-        if(!StorageMain.hasOwner(math_sys.getPlot(player.getLocation()))) {
+        if(!StorageMain.hasOwner(MathSys.getPlot(player.getLocation()))) {
             player.sendMessage(PREFIX+"Das ist nicht dein Plot!");
             return;
         }
 
-        Plot plot = StorageMain.getPlot(math_sys.getPlot(player.getLocation()));
+        Plot plot = StorageMain.getPlot(MathSys.getPlot(player.getLocation()));
 
         if(!plot.canDoAdmin(player)) {
             player.sendMessage(PREFIX+"Das ist nicht dein Plot!");

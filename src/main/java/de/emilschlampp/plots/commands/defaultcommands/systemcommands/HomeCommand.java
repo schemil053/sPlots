@@ -1,18 +1,17 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.storage.StorageMain;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class home_command extends PlotSubCommand implements HelpCommandInterface {
+public class HomeCommand extends PlotSubCommand implements HelpCommandInterface {
 
-    public home_command() {
+    public HomeCommand() {
         super("home", "splots.home", Arrays.asList("h"));
     }
 

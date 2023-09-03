@@ -1,21 +1,20 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.OfflineGetter;
-import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class trust_command extends PlotSubCommand implements HelpCommandInterface {
-    public trust_command() {
+public class TrustCommand extends PlotSubCommand implements HelpCommandInterface {
+    public TrustCommand() {
         super("trust", "splots.trust", "t");
     }
 
@@ -38,12 +37,12 @@ public class trust_command extends PlotSubCommand implements HelpCommandInterfac
         if(!isOnPlotCheck(player)) {
             return;
         }
-        if(!StorageMain.hasOwner(math_sys.getPlot(player.getLocation()))) {
+        if(!StorageMain.hasOwner(MathSys.getPlot(player.getLocation()))) {
             player.sendMessage(PREFIX+"Das ist nicht dein Plot!");
             return;
         }
 
-        Plot plot = StorageMain.getPlot(math_sys.getPlot(player.getLocation()));
+        Plot plot = StorageMain.getPlot(MathSys.getPlot(player.getLocation()));
 
         if(!plot.canDoAdmin(player)) {
             player.sendMessage(PREFIX+"Das ist nicht dein Plot!");

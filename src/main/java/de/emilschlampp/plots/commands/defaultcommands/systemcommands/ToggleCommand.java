@@ -1,18 +1,17 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.storage.StorageMain;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class toggle_command extends PlotSubCommand implements HelpCommandInterface {
-    public toggle_command() {
+public class ToggleCommand extends PlotSubCommand implements HelpCommandInterface {
+    public ToggleCommand() {
         super("toggle", "splots.toggle", "tog");
         if(!togglevalues.isEmpty()) {
             return;

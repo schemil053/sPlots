@@ -1,7 +1,7 @@
 package de.emilschlampp.plots.listener.events;
 
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.ObjectPair;
-import de.emilschlampp.plots.utils.math_sys;
 import org.apache.commons.lang.Validate;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -28,10 +28,10 @@ public class PlayerExitPlotEvent extends Event implements Cancellable {
     public PlayerExitPlotEvent(@NotNull Player player, @NotNull String plotid, Cause cause) {
         Validate.notNull(player);
         Validate.notNull(plotid);
-        if(!math_sys.isPlotID(plotid)) {
+        if(!MathSys.isPlotID(plotid)) {
             throw new IllegalArgumentException("'plotid' is'nt a PlotID!");
         }
-        id = math_sys.getPlot(plotid);
+        id = MathSys.getPlot(plotid);
         this.player = player;
         this.plotid = plotid;
         this.cause = cause;

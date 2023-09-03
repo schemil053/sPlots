@@ -1,7 +1,6 @@
 package de.emilschlampp.plots.utils;
 
 import de.emilschlampp.plots.Plots;
-import de.emilschlampp.plots.Storage.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;

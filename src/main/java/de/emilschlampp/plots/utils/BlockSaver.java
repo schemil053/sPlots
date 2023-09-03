@@ -38,7 +38,7 @@ public class BlockSaver {
                 World w = location.getWorld();
      //           w.getBlockAt(x, y, z).setType(Material.AIR, false);
      //           w.getBlockAt(x, y, z).setType(m, false);
-                if(plot.equals("") || math_sys.getPlot(x, z).equals(plot)) {
+                if(plot.equals("") || MathSys.getPlot(x, z).equals(plot)) {
                     w.getBlockAt(x, y, z).setBlockData(data, false);
                 }
 

@@ -1,8 +1,8 @@
 package de.emilschlampp.plots.commands.defaultcommands.border;
 
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.Utils;
-import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,10 +14,10 @@ import org.bukkit.inventory.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class wall_command extends PlotSubCommand implements Listener {
+public class WallCommand extends PlotSubCommand implements Listener {
 
 
-    public wall_command() {
+    public WallCommand() {
         super("wall", "splots.wall", "wand");
     }
 
@@ -27,18 +27,18 @@ public class wall_command extends PlotSubCommand implements Listener {
     }
 
     public static Material getRandItem(int slot) {
-        if(!Rand_Saver.yamlConfiguration.isSet("wall."+slot)) {
+        if(!RandSaver.yamlConfiguration.isSet("wall."+slot)) {
             return null;
         }
-        return Material.valueOf(Rand_Saver.yamlConfiguration.getString("wall."+slot));
+        return Material.valueOf(RandSaver.yamlConfiguration.getString("wall."+slot));
     }
 
     public static void setRandItem(int slot, Material material) {
         if(material == null) {
-            Rand_Saver.yamlConfiguration.set("wall."+slot, null);
+            RandSaver.yamlConfiguration.set("wall."+slot, null);
             return;
         }
-        Rand_Saver.yamlConfiguration.set("wall."+slot, material.name());
+        RandSaver.yamlConfiguration.set("wall."+slot, material.name());
     }
 
     public static boolean canUse(int slot, Player player) {
@@ -47,7 +47,7 @@ public class wall_command extends PlotSubCommand implements Listener {
 
     @EventHandler
     public void onICLick(InventoryClickEvent event) {
-        if(!event.getView().getTitle().equals(math_sys.generateID(PREFIX+"Wände"))) {
+        if(!event.getView().getTitle().equals(MathSys.generateID(PREFIX+"Wände"))) {
             return;
         }
         event.setCancelled(true);
@@ -71,22 +71,22 @@ public class wall_command extends PlotSubCommand implements Listener {
         }
         Material material1 = material;
         if(!material.isBlock()) {
-            if(Rand_Saver.translate(material) == null) {
+            if(RandSaver.translate(material) == null) {
                 player.sendMessage(PREFIX + "Dieses Item ist kein Block, deshalb kann die Wand nicht gesetzt werden!");
                 return;
             }
-            material1 = Rand_Saver.translate(material);
+            material1 = RandSaver.translate(material);
         }
         if(!material1.isBlock()) {
             player.sendMessage(PREFIX + "Dieses Item ist kein Block, deshalb kann die Wand nicht gesetzt werden!");
             return;
         }
-        math_sys.setWall(math_sys.getPlot(player.getLocation()), material1.createBlockData());
+        MathSys.setWall(MathSys.getPlot(player.getLocation()), material1.createBlockData());
     }
 
     @Override
     public void execute(Player player, String[] args) {
-        Inventory inventory = Bukkit.createInventory(null, 54, math_sys.generateID(PREFIX+"Wände"));
+        Inventory inventory = Bukkit.createInventory(null, 54, MathSys.generateID(PREFIX+"Wände"));
         for(int i = 0; i<inventory.getSize(); i++) {
             if(getRandItem(i) == null) {
                 continue;

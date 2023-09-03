@@ -1,8 +1,8 @@
 package de.emilschlampp.plots.commands.defaultcommands.border;
 
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.Utils;
-import de.emilschlampp.plots.utils.math_sys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,11 +14,11 @@ import org.bukkit.inventory.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.emilschlampp.plots.commands.defaultcommands.border.wall_command.getRandItem;
+import static de.emilschlampp.plots.commands.defaultcommands.border.RandCommand.getRandItem;
 
-public class editwall_command extends PlotSubCommand implements Listener {
-    public editwall_command() {
-        super("editwall", "splots.admin");
+public class EditRandCommand extends PlotSubCommand implements Listener {
+    public EditRandCommand() {
+        super("editrand", "splots.admin");
     }
 
     @Override
@@ -37,31 +37,31 @@ public class editwall_command extends PlotSubCommand implements Listener {
         if(!open.getUniqueId().equals(event.getPlayer().getUniqueId())) {
             return;
         }
-        if(!event.getView().getTitle().equals(math_sys.generateID(PREFIX+"Wände bearbeiten"))) {
+        if(!event.getView().getTitle().equals(MathSys.generateID(PREFIX+"Ränder bearbeiten"))) {
             return;
         }
         Inventory inventory = event.getView().getTopInventory();
         for(int i = 0; i<inventory.getSize(); i++) {
             if(inventory.getItem(i) == null) {
-                wall_command.setRandItem(i, null);
+                RandCommand.setRandItem(i, null);
                 continue;
             }
             if(inventory.getItem(i).getType().isAir()) {
-                wall_command.setRandItem(i, null);
+                RandCommand.setRandItem(i, null);
                 continue;
             }
             if(inventory.getItem(i).getType().equals(Material.BARRIER)) {
                 if(inventory.getItem(i).getItemMeta().hasDisplayName()) {
                     if(inventory.getItem(i).getItemMeta().getDisplayName().equals("air") || inventory.getItem(i).getItemMeta().getDisplayName().contains("§fLuft")) {
-                        wall_command.setRandItem(i, Material.AIR);
+                        RandCommand.setRandItem(i, Material.AIR);
                         continue;
                     }
                 }
             }
-            wall_command.setRandItem(i, inventory.getItem(i).getType());
+            RandCommand.setRandItem(i, inventory.getItem(i).getType());
         }
         open = null;
-        Rand_Saver.save();
+        RandSaver.save();
     }
 
     private Player open = null;
@@ -74,7 +74,7 @@ public class editwall_command extends PlotSubCommand implements Listener {
                 return;
             }
         }
-        Inventory inventory = Bukkit.createInventory(null, 54, math_sys.generateID(PREFIX+"Wände bearbeiten"));
+        Inventory inventory = Bukkit.createInventory(null, 54, MathSys.generateID(PREFIX+"Ränder bearbeiten"));
         for(int i = 0; i<inventory.getSize(); i++) {
             if(getRandItem(i) == null) {
                 continue;
@@ -83,7 +83,7 @@ public class editwall_command extends PlotSubCommand implements Listener {
                 inventory.setItem(i, Utils.createGuiItem(Material.BARRIER, "§r§fLuft", true));
                 continue;
             }
-            inventory.setItem(i, Utils.createGuiItem(getRandItem(i), "", true, "§a§lPermission: §c"+"splots.wall."+i));
+            inventory.setItem(i, Utils.createGuiItem(getRandItem(i), "", true, "§a§lPermission: §c"+"splots.rand."+i));
         }
         player.openInventory(inventory);
         open = player;

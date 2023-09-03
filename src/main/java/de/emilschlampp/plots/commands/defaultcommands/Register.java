@@ -2,13 +2,13 @@ package de.emilschlampp.plots.commands.defaultcommands;
 
 import de.emilschlampp.plots.commands.PlotMainCommand;
 import de.emilschlampp.plots.commands.PlotSubCommand;
-import de.emilschlampp.plots.commands.defaultcommands.backup.backup_command;
-import de.emilschlampp.plots.commands.defaultcommands.border.editrand_command;
-import de.emilschlampp.plots.commands.defaultcommands.border.editwall_command;
-import de.emilschlampp.plots.commands.defaultcommands.border.rand_command;
-import de.emilschlampp.plots.commands.defaultcommands.border.wall_command;
-import de.emilschlampp.plots.commands.defaultcommands.chunkanalyse.analysechunks_command;
-import de.emilschlampp.plots.commands.defaultcommands.chunkanalyse.tpchunk_command;
+import de.emilschlampp.plots.commands.defaultcommands.backup.PlotBackupCommand;
+import de.emilschlampp.plots.commands.defaultcommands.border.EditRandCommand;
+import de.emilschlampp.plots.commands.defaultcommands.border.EditWallCommand;
+import de.emilschlampp.plots.commands.defaultcommands.border.RandCommand;
+import de.emilschlampp.plots.commands.defaultcommands.border.WallCommand;
+import de.emilschlampp.plots.commands.defaultcommands.chunkanalyse.AnalyseChunksCommand;
+import de.emilschlampp.plots.commands.defaultcommands.chunkanalyse.TPChunkCommand;
 import de.emilschlampp.plots.commands.defaultcommands.systemcommands.*;
 import de.emilschlampp.plots.utils.OfflineGetter;
 
@@ -32,35 +32,36 @@ public class Register {
 
 
 
-        register(new flag_command());
-        register(new tp_command());
-        register(new untrust_command());
-        register(new trust_command());
-        register(new setowner_command());
-        register(new claim_command());
-        register(new auto_command());
-        register(new confirm_command());
-        register(new middle_command());
-        register(new clear_command());
-        register(new delete_command());
-        register(new home_command());
-        register(new info_command());
-        register(new toggle_command());
-        register(new help_command());
-        register(new visit_command());
+        register(new FlagCommand());
+        register(new TPCommand());
+        register(new UntrustCommand());
+        register(new TrustCommand());
+        register(new SetOwnerCommand());
+        register(new ClaimCommand());
+        register(new AutoCommand());
+        register(new ConfirmCommand());
+        register(new MiddleCommand());
+        register(new ClearCommand());
+        register(new DeleteCommand());
+        register(new HomeCommand());
+        register(new InfoCommand());
+        register(new ToggleCommand());
+        register(new HelpCommand());
+        register(new VisitCommand());
+        register(new MergeCommand());
 
-        register(new rand_command());
-        register(new editrand_command());
-        register(new editwall_command());
-        register(new wall_command());
-
-
-
-        register(new analysechunks_command());
-        register(new tpchunk_command());
+        register(new RandCommand());
+        register(new EditRandCommand());
+        register(new EditWallCommand());
+        register(new WallCommand());
 
 
-        register(new backup_command());
+
+        register(new AnalyseChunksCommand());
+        register(new TPChunkCommand());
+
+
+        register(new PlotBackupCommand());
 
 
     }

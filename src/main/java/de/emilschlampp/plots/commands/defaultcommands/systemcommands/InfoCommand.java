@@ -1,22 +1,21 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
 import de.emilschlampp.plots.utils.EComList;
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.utils.MathSys;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class info_command extends PlotSubCommand implements HelpCommandInterface {
-    public info_command() {
+public class InfoCommand extends PlotSubCommand implements HelpCommandInterface {
+    public InfoCommand() {
         super("info", "splots.info", Arrays.asList("i"));
     }
 
@@ -30,11 +29,11 @@ public class info_command extends PlotSubCommand implements HelpCommandInterface
         if(!isOnPlotCheck(player)) {
             return;
         }
-        if(!StorageMain.hasOwner(math_sys.getPlot(player.getLocation()))) {
-            player.sendMessage(PREFIX+"Das Plot §b"+math_sys.getPlot(player.getLocation())+" §6hat keinen Besitzer.");
+        if(!StorageMain.hasOwner(MathSys.getPlot(player.getLocation()))) {
+            player.sendMessage(PREFIX+"Das Plot §b"+ MathSys.getPlot(player.getLocation())+" §6hat keinen Besitzer.");
             return;
         }
-        Plot playerplot = StorageMain.getPlot(math_sys.getPlot(player.getLocation()));
+        Plot playerplot = StorageMain.getPlot(MathSys.getPlot(player.getLocation()));
         player.sendMessage(PREFIX+"-------- Info --------");
         player.sendMessage(PREFIX+"ID: "+playerplot.id());
         player.sendMessage(PREFIX+"Owner: "+ Bukkit.getOfflinePlayer(playerplot.getOwner()).getName());
@@ -57,7 +56,7 @@ public class info_command extends PlotSubCommand implements HelpCommandInterface
     private static List<String> changetostringF(List<Plot.Flag> flags) {
         List<String> a = new ArrayList<>();
         for(Plot.Flag flag : flags) {
-            if(flag_command.getFlags().contains(flag)) {
+            if(FlagCommand.getFlags().contains(flag)) {
                 a.add(flag.toSimpleString());
             }
         }

@@ -2,15 +2,14 @@ package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.utils.MathSys;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class tp_command extends PlotSubCommand implements HelpCommandInterface {
-    public tp_command() {
+public class TPCommand extends PlotSubCommand implements HelpCommandInterface {
+    public TPCommand() {
         super("tp", "splots.tp");
     }
 
@@ -25,11 +24,11 @@ public class tp_command extends PlotSubCommand implements HelpCommandInterface {
             player.sendMessage(PREFIX+"Syntax: /plot tp <id>");
             return;
         }
-        if(!math_sys.isPlotID(args[0])) {
+        if(!MathSys.isPlotID(args[0])) {
             player.sendMessage(PREFIX+"Das ist keine Plot-ID!");
             return;
         }
-        player.teleport(math_sys.getTeleportLocation(args[0]));
+        player.teleport(MathSys.getTeleportLocation(args[0]));
         player.sendMessage(PREFIX+"Du wurdest teleportiert!");
     }
 

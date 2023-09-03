@@ -1,4 +1,4 @@
-package de.emilschlampp.plots.Storage;
+package de.emilschlampp.plots.storage;
 
 import de.emilschlampp.plots.Plots;
 import org.bukkit.configuration.file.YamlConfiguration;

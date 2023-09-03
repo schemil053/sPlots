@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-public class Rand_Saver {
+public class RandSaver {
     private static File file = new File(Plots.instance.getDataFolder(), "borders.yml");
     public static YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
 

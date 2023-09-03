@@ -1,13 +1,9 @@
 package de.emilschlampp.plots.commands;
 
 import de.emilschlampp.plots.Plots;
-import de.emilschlampp.plots.commands.defaultcommands.systemcommands.help_command;
+import de.emilschlampp.plots.commands.defaultcommands.systemcommands.HelpCommand;
 import de.emilschlampp.plots.utils.Utils;
-import de.emilschlampp.plots.utils.math_sys;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -62,9 +58,9 @@ public class PlotMainCommand implements TabExecutor {
             Plots.instance.getServer().getPluginManager().registerEvents((Listener) command, Plots.instance);
         }
         if(command instanceof HelpCommandInterface) {
-            help_command.setHelp(((HelpCommandInterface) command).getHelp(), command.getName());
+            HelpCommand.setHelp(((HelpCommandInterface) command).getHelp(), command.getName());
             for(String a : command.getAliases()) {
-                help_command.setHelp(((HelpCommandInterface) command).getHelp(), a);
+                HelpCommand.setHelp(((HelpCommandInterface) command).getHelp(), a);
             }
         }
     }

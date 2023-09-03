@@ -3,7 +3,7 @@ package de.emilschlampp.plots.commands.defaultcommands.backup;
 import de.emilschlampp.plots.Plots;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.utils.BlockSaver;
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.utils.MathSys;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class backup_command extends PlotSubCommand {
-    public backup_command() {
+public class PlotBackupCommand extends PlotSubCommand {
+    public PlotBackupCommand() {
         super("backup", "splots.admin");
     }
 
@@ -60,9 +60,9 @@ public class backup_command extends PlotSubCommand {
                 file.delete();
             }
             if(args[0].equals("save")) {
-                Location location = math_sys.getLoc(math_sys.getPlot(player.getLocation()));
+                Location location = MathSys.getLoc(MathSys.getPlot(player.getLocation()));
                 location.add(1, 0, 1);
-                Location location1 = location.clone().add(math_sys.pw-1, 0, math_sys.pw-1);
+                Location location1 = location.clone().add(MathSys.pw-1, 0, MathSys.pw-1);
                 location.setY(location.getWorld().getMinHeight());
                 location1.setY(location1.getWorld().getMaxHeight());
                 player.sendMessage(PREFIX+"§aKopiere...");
@@ -70,11 +70,11 @@ public class backup_command extends PlotSubCommand {
                 player.sendMessage(PREFIX+"§aKopieren abgeschlossen!");
             }
             if(args[0].equals("load")) {
-                Location location = math_sys.getLoc(math_sys.getPlot(player.getLocation()));
+                Location location = MathSys.getLoc(MathSys.getPlot(player.getLocation()));
                 location.add(1, 0, 1);
                 location.setY(location.getWorld().getMinHeight());
                 player.sendMessage(PREFIX+"§aEinfügen...");
-                BlockSaver.paste(args[1], location, math_sys.getPlot(player.getLocation()));
+                BlockSaver.paste(args[1], location, MathSys.getPlot(player.getLocation()));
                 player.sendMessage(PREFIX+"§aEinfügen abgeschlossen!");
             }
         }

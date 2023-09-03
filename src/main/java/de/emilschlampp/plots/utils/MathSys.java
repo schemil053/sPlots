@@ -4,11 +4,11 @@ import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class math_sys {
+public class MathSys {
 
 
     public static int pw = 50;
@@ -145,10 +145,10 @@ public class math_sys {
         b.setY(pheight);
         a.setY(0);
         removeEntities(id);
-        BlockSetter.set(a,b, Bukkit.createBlockData(math_sys.PLOTFLOOR));
+        BlockSetter.set(a,b, Bukkit.createBlockData(MathSys.PLOTFLOOR));
         a.setY(pheight);
         b.setY(pheight);
-        BlockSetter.set(a, b, Bukkit.createBlockData(math_sys.PLOTFLOORTOP));
+        BlockSetter.set(a, b, Bukkit.createBlockData(MathSys.PLOTFLOORTOP));
         a.setY(a.getWorld().getMaxHeight()-1);
         b.setY(pheight+1);
         BlockSetter.set(a, b, Bukkit.createBlockData(Material.AIR));
@@ -157,8 +157,8 @@ public class math_sys {
         BlockSetter.set(a, b, Material.BEDROCK);
         removeEntities(id);
         if(rand) {
-            setRand(id, Bukkit.createBlockData(math_sys.BORDERBLOCK));
-            setWall(id, Bukkit.createBlockData(math_sys.WALLBLOCK));
+            setRand(id, Bukkit.createBlockData(MathSys.BORDERBLOCK));
+            setWall(id, Bukkit.createBlockData(MathSys.WALLBLOCK));
         }
     }
 
@@ -192,6 +192,34 @@ public class math_sys {
         }
     }
 
+    public static void setRoad(String ida, String idb) {
+        Location a = getLoc(ida);
+        Location b = getLoc(idb);
+        Direction direction = Direction.getRelative(a, b);
+        Location ba = b.clone();
+        ba.setY(1);
+        if(direction.equals(Direction.X)) {
+            BlockSetter.set(a.clone().add(pw+1, -1, pw), ba.clone().add(0, 0, 1), PLOTFLOOR);
+            BlockSetter.set(a.clone().add(pw+1, 0, pw), b.clone().add(0, 0, 1), PLOTFLOORTOP);
+            BlockSetter.set(a.clone().add(pw+1, 5, pw), b.clone().add(0, 1, 1), Material.AIR);
+        }
+        if(direction.equals(Direction.NX)) {
+            BlockSetter.set(a.clone().add(0, -1, pw), ba.clone().add(pw+1,0, 1), PLOTFLOOR);
+            BlockSetter.set(a.clone().add(0, 0, pw), b.clone().add(pw+1, 0, 1), PLOTFLOORTOP);
+            BlockSetter.set(a.clone().add(0, 5, pw), b.clone().add(pw+1, 1, 1), Material.AIR);
+        }
+        if(direction.equals(Direction.Z)) {
+            BlockSetter.set(a.clone().add(pw, -1, pw+1), ba.clone().add(1, 0, 0), PLOTFLOOR);
+            BlockSetter.set(a.clone().add(pw, 0, pw+1), b.clone().add(1, 0, 0), PLOTFLOORTOP);
+            BlockSetter.set(a.clone().add(pw, 5, pw+1), b.clone().add(1, 1, 0), Material.AIR);
+        }
+        if(direction.equals(Direction.NZ)) {
+            BlockSetter.set(a.clone().add(pw, -1, 0), ba.clone().add(1,0, pw+1), PLOTFLOOR);
+            BlockSetter.set(a.clone().add(pw, 0, 0), b.clone().add(1, 0, pw+1), PLOTFLOORTOP);
+            BlockSetter.set(a.clone().add(pw, 5, 0), b.clone().add(1, 1, pw+1), Material.AIR);
+        }
+    }
+
     public static String getPlot(int xa, int za) {
         double n3;
         int valx = xa;
@@ -219,8 +247,9 @@ public class math_sys {
                 z = (int)Math.ceil((valz - n3) / size);
             }
         }
-        if (road)
+        if (road) {
             return "road";
+        }
         if(xa < 0) {
             x = x-1;
         }

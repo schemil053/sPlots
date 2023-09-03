@@ -1,9 +1,8 @@
-package de.emilschlampp.plots.Storage;
+package de.emilschlampp.plots.storage;
 
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.utils.MathSys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -21,11 +20,11 @@ public class Plot {
     }
 
     public void clear() {
-        math_sys.clearPlot(id(), false);
+        MathSys.clearPlot(id(), false);
     }
 
     public void delete() {
-        math_sys.clearPlot(id(), true);
+        MathSys.clearPlot(id(), true);
         StorageMain.removePlot(id());
     }
 
@@ -39,6 +38,14 @@ public class Plot {
             }
         }
         return null;
+    }
+
+    public void setFlag(Flag flag) {
+        if(getFlag(flag.getName()) != null) {
+            getFlag(flag.getName()).setValue(flag.getValue());
+        }else {
+            flags.add(flag);
+        }
     }
 
     public boolean isBooleanFlagSet(String name) {
@@ -108,12 +115,12 @@ public class Plot {
     }
 
     public Location getTPLocation() {
-        return math_sys.getTeleportLocation(id());
+        return MathSys.getTeleportLocation(id());
     }
 
     public void setClaimBorder() {
-        math_sys.setWall(id(), Bukkit.createBlockData(math_sys.WALLBLOCKCLAIMED));
-        math_sys.setRand(id(), Bukkit.createBlockData(math_sys.BORDERBLOCKCLAIMED));
+        MathSys.setWall(id(), Bukkit.createBlockData(MathSys.WALLBLOCKCLAIMED));
+        MathSys.setRand(id(), Bukkit.createBlockData(MathSys.BORDERBLOCKCLAIMED));
     }
 
     @Override

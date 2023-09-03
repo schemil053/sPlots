@@ -1,19 +1,19 @@
 package de.emilschlampp.plots.commands.defaultcommands.systemcommands;
 
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.HelpCommandInterface;
 import de.emilschlampp.plots.commands.PlotSubCommand;
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
+import de.emilschlampp.plots.utils.MathSys;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class delete_command extends PlotSubCommand implements HelpCommandInterface {
-    public delete_command() {
-        super("delete", "splots.delete", Arrays.asList("del"));
+public class ClearCommand extends PlotSubCommand implements HelpCommandInterface {
+    public ClearCommand() {
+        super("clear", "splots.clear", Arrays.asList("cl"));
     }
 
     @Override
@@ -26,28 +26,28 @@ public class delete_command extends PlotSubCommand implements HelpCommandInterfa
         if(!isOnPlotCheck(player)) {
             return;
         }
-        if(!StorageMain.hasOwner(math_sys.getPlot(player.getLocation()))) {
+        if(!StorageMain.hasOwner(MathSys.getPlot(player.getLocation()))) {
             player.sendMessage(PREFIX+"Das ist nicht dein Plot!");
             return;
         }
-        Plot plot = StorageMain.getPlot(math_sys.getPlot(player.getLocation()));
+        Plot plot = StorageMain.getPlot(MathSys.getPlot(player.getLocation()));
         if(!plot.canDoAdmin(player)) {
             player.sendMessage(PREFIX+"Das ist nicht dein Plot!");
             return;
         }
-        confirm_command.confirm(player, new Runnable() {
+        ConfirmCommand.confirm(player, new Runnable() {
             @Override
             public void run() {
                 long a = System.currentTimeMillis();
-                plot.delete();
+                plot.clear();
                 long ms = System.currentTimeMillis()-a;
-                player.sendMessage(PREFIX+"Das Plot §b"+plot.id()+" §6wurde erfolgreich gelöscht. Dieser Vorgang dauerte "+ms+"ms.");
+                player.sendMessage(PREFIX+"Das Plot §b"+plot.id()+" §6wurde erfolgreich geleert. Dieser Vorgang dauerte "+ms+"ms.");
             }
         });
     }
 
     @Override
     public String getHelp() {
-        return "Löscht das Grundstück auf dem du stehst.";
+        return "Leert das Grundstück auf dem du stehst.";
     }
 }

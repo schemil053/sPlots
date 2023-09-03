@@ -1,14 +1,14 @@
 package de.emilschlampp.plots.listener;
 
 import de.emilschlampp.plots.Plots;
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
 import de.emilschlampp.plots.commands.PlotSubCommand;
 import de.emilschlampp.plots.listener.events.PlayerEntryPlotEvent;
 import de.emilschlampp.plots.listener.events.PlayerExitPlotEvent;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
 import de.emilschlampp.plots.utils.EComList;
+import de.emilschlampp.plots.utils.MathSys;
 import de.emilschlampp.plots.utils.PlayerQuitClearList;
-import de.emilschlampp.plots.utils.math_sys;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -17,7 +17,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.*;
 
@@ -44,14 +47,14 @@ public class PlayerListener implements Listener {
                 return;
             }
         }
-        if(!math_sys.isW(block.getWorld())) {
+        if(!MathSys.isW(block.getWorld())) {
             return;
         }
-        if(math_sys.isroad(block.getLocation())) {
+        if(MathSys.isroad(block.getLocation())) {
             event.setCancelled(true);
             return;
         }
-        String id = math_sys.getPlot(block.getLocation());
+        String id = MathSys.getPlot(block.getLocation());
         if(!StorageMain.hasOwner(id)) {
             event.setCancelled(true);
             return;
@@ -79,13 +82,13 @@ public class PlayerListener implements Listener {
         if(event.getTo().getBlock().equals(event.getFrom().getBlock())) {
             return;
         }
-        if(!math_sys.isW(event.getTo().getWorld())) {
+        if(!MathSys.isW(event.getTo().getWorld())) {
             if(playerlastplot.containsKey(event.getPlayer().getUniqueId())) {
                 playerlastplot.remove(event.getPlayer().getUniqueId());
             }
             return;
         }
-        if(math_sys.isroad(event.getTo())) {
+        if(MathSys.isroad(event.getTo())) {
             if(playerlastplot.containsKey(event.getPlayer().getUniqueId())) {
                 PlayerExitPlotEvent event1 = new PlayerExitPlotEvent(event.getPlayer(), playerlastplot.get(event.getPlayer().getUniqueId()),
                         PlayerExitPlotEvent.Cause.MOVE);
@@ -100,7 +103,7 @@ public class PlayerListener implements Listener {
         }
         String lastp = playerlastplot.get(event.getPlayer().getUniqueId());
         if(lastp != null) {
-            if(lastp.equalsIgnoreCase(math_sys.getPlot(event.getTo()))) {
+            if(lastp.equalsIgnoreCase(MathSys.getPlot(event.getTo()))) {
                 return;
             } else {
                 PlayerExitPlotEvent event1 = new PlayerExitPlotEvent(event.getPlayer(), playerlastplot.get(event.getPlayer().getUniqueId()),
@@ -112,13 +115,13 @@ public class PlayerListener implements Listener {
                 }
             }
         }
-        PlayerEntryPlotEvent event1 = new PlayerEntryPlotEvent(event.getPlayer(), math_sys.getPlot(event.getTo()), PlayerEntryPlotEvent.Cause.MOVE);
+        PlayerEntryPlotEvent event1 = new PlayerEntryPlotEvent(event.getPlayer(), MathSys.getPlot(event.getTo()), PlayerEntryPlotEvent.Cause.MOVE);
         Bukkit.getPluginManager().callEvent(event1);
         if(event1.isCancelled()) {
             event.setCancelled(true);
             if(event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName())) {
-                if (!math_sys.isroad(event.getFrom())) {
-                    if (math_sys.getPlot(event.getFrom()).equals(math_sys.getPlot(event.getTo()))) {
+                if (!MathSys.isroad(event.getFrom())) {
+                    if (MathSys.getPlot(event.getFrom()).equals(MathSys.getPlot(event.getTo()))) {
                         Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
                             event.getPlayer().teleport(event.getTo().getWorld().getSpawnLocation());
                         }, 1);
@@ -127,7 +130,7 @@ public class PlayerListener implements Listener {
             }
             return;
         }
-        playerlastplot.put(event.getPlayer().getUniqueId(), math_sys.getPlot(event.getTo()));
+        playerlastplot.put(event.getPlayer().getUniqueId(), MathSys.getPlot(event.getTo()));
     }
 
     @EventHandler
@@ -135,13 +138,13 @@ public class PlayerListener implements Listener {
         if(event.getTo().getBlock().equals(event.getFrom().getBlock())) {
             return;
         }
-        if(!math_sys.isW(event.getTo().getWorld())) {
+        if(!MathSys.isW(event.getTo().getWorld())) {
             if(playerlastplot.containsKey(event.getPlayer().getUniqueId())) {
                 playerlastplot.remove(event.getPlayer().getUniqueId());
             }
             return;
         }
-        if(math_sys.isroad(event.getTo())) {
+        if(MathSys.isroad(event.getTo())) {
             if(playerlastplot.containsKey(event.getPlayer().getUniqueId())) {
                 PlayerExitPlotEvent event1 = new PlayerExitPlotEvent(event.getPlayer(), playerlastplot.get(event.getPlayer().getUniqueId()),
                         PlayerExitPlotEvent.Cause.TELEPORT);
@@ -156,7 +159,7 @@ public class PlayerListener implements Listener {
         }
         String lastp = playerlastplot.get(event.getPlayer().getUniqueId());
         if(lastp != null) {
-            if(lastp.equalsIgnoreCase(math_sys.getPlot(event.getTo()))) {
+            if(lastp.equalsIgnoreCase(MathSys.getPlot(event.getTo()))) {
                 return;
             } else {
                 PlayerExitPlotEvent event1 = new PlayerExitPlotEvent(event.getPlayer(), playerlastplot.get(event.getPlayer().getUniqueId()),
@@ -168,21 +171,21 @@ public class PlayerListener implements Listener {
                 }
             }
         }
-        PlayerEntryPlotEvent event1 = new PlayerEntryPlotEvent(event.getPlayer(), math_sys.getPlot(event.getTo()), PlayerEntryPlotEvent.Cause.TELEPORT);
+        PlayerEntryPlotEvent event1 = new PlayerEntryPlotEvent(event.getPlayer(), MathSys.getPlot(event.getTo()), PlayerEntryPlotEvent.Cause.TELEPORT);
         Bukkit.getPluginManager().callEvent(event1);
         if(event1.isCancelled()) {
             event.setCancelled(true);
             event.getPlayer().sendMessage(event.getTo()+"");
             if(event.getFrom().getWorld().getName().equals(event.getTo().getWorld().getName())) {
-                if (!math_sys.isroad(event.getFrom())) {
-                    if (math_sys.getPlot(event.getFrom()).equals(math_sys.getPlot(event.getTo()))) {
+                if (!MathSys.isroad(event.getFrom())) {
+                    if (MathSys.getPlot(event.getFrom()).equals(MathSys.getPlot(event.getTo()))) {
                         event.getPlayer().teleport(event.getTo().getWorld().getSpawnLocation());
                     }
                 }
             }
             return;
         }
-        playerlastplot.put(event.getPlayer().getUniqueId(), math_sys.getPlot(event.getTo()));
+        playerlastplot.put(event.getPlayer().getUniqueId(), MathSys.getPlot(event.getTo()));
     }
 
     @EventHandler
@@ -203,14 +206,14 @@ public class PlayerListener implements Listener {
             return;
         }
         Block block = event.getBlock();
-        if(!math_sys.isW(block.getWorld())) {
+        if(!MathSys.isW(block.getWorld())) {
             return;
         }
-        if(math_sys.isroad(block.getLocation())) {
+        if(MathSys.isroad(block.getLocation())) {
             event.setCancelled(true);
             return;
         }
-        String id = math_sys.getPlot(block.getLocation());
+        String id = MathSys.getPlot(block.getLocation());
         if(!StorageMain.hasOwner(id)) {
             event.setCancelled(true);
             return;
@@ -241,14 +244,14 @@ public class PlayerListener implements Listener {
             return;
         }
         Block block = event.getBlock();
-        if(!math_sys.isW(block.getWorld())) {
+        if(!MathSys.isW(block.getWorld())) {
             return;
         }
-        if(math_sys.isroad(block.getLocation())) {
+        if(MathSys.isroad(block.getLocation())) {
             event.setCancelled(true);
             return;
         }
-        String id = math_sys.getPlot(block.getLocation());
+        String id = MathSys.getPlot(block.getLocation());
         if(!StorageMain.hasOwner(id)) {
             event.setCancelled(true);
             return;
@@ -271,14 +274,14 @@ public class PlayerListener implements Listener {
             return;
         }
         Block block = event.getBlock();
-        if(!math_sys.isW(block.getWorld())) {
+        if(!MathSys.isW(block.getWorld())) {
             return;
         }
-        if(math_sys.isroad(block.getLocation())) {
+        if(MathSys.isroad(block.getLocation())) {
             event.setCancelled(true);
             return;
         }
-        String id = math_sys.getPlot(block.getLocation());
+        String id = MathSys.getPlot(block.getLocation());
         if(!StorageMain.hasOwner(id)) {
             event.setCancelled(true);
             return;
@@ -300,14 +303,14 @@ public class PlayerListener implements Listener {
             return;
         }
         Block block = event.getBlock();
-        if(!math_sys.isW(block.getWorld())) {
+        if(!MathSys.isW(block.getWorld())) {
             return;
         }
-        if(math_sys.isroad(block.getLocation())) {
+        if(MathSys.isroad(block.getLocation())) {
             event.setCancelled(true);
             return;
         }
-        String id = math_sys.getPlot(block.getLocation());
+        String id = MathSys.getPlot(block.getLocation());
         if(!StorageMain.hasOwner(id)) {
             event.setCancelled(true);
             return;
@@ -322,10 +325,10 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onLiquid(BlockFromToEvent event) {
-        if(!math_sys.isW(event.getBlock().getWorld())) {
+        if(!MathSys.isW(event.getBlock().getWorld())) {
             return;
         }
-        if(math_sys.isroad(event.getBlock().getLocation()) != math_sys.isroad(event.getToBlock().getLocation())) {
+        if(MathSys.isroad(event.getBlock().getLocation()) != MathSys.isroad(event.getToBlock().getLocation())) {
             event.setCancelled(true);
         }
     }
@@ -334,10 +337,10 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPVP(EntityDamageByEntityEvent event) {
-        if(!math_sys.isW(event.getEntity().getWorld())) {
+        if(!MathSys.isW(event.getEntity().getWorld())) {
             return;
         }
-        if(math_sys.isroad(event.getEntity().getLocation())) {
+        if(MathSys.isroad(event.getEntity().getLocation())) {
             if(event.getDamager() instanceof Player) {
                 if(event.getDamager().hasPermission("splots.admin")) {
                     return;
@@ -345,7 +348,7 @@ public class PlayerListener implements Listener {
             }
             event.setCancelled(true);
         } else {
-            String plot = math_sys.getPlot(event.getEntity().getLocation());
+            String plot = MathSys.getPlot(event.getEntity().getLocation());
             if(StorageMain.hasOwner(plot)) {
                 if(event.getEntity() instanceof Player) {
                     if(event.getDamager() instanceof Player) {

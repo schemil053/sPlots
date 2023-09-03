@@ -1,9 +1,9 @@
 package de.emilschlampp.plots.listener;
 
 import de.emilschlampp.plots.Plots;
-import de.emilschlampp.plots.Storage.Plot;
-import de.emilschlampp.plots.Storage.StorageMain;
-import de.emilschlampp.plots.utils.math_sys;
+import de.emilschlampp.plots.storage.Plot;
+import de.emilschlampp.plots.storage.StorageMain;
+import de.emilschlampp.plots.utils.MathSys;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
@@ -26,7 +26,7 @@ import java.util.List;
 public class EntityListener implements Listener {
     @EventHandler
     public void onEEE(EntityExplodeEvent event) {
-        if(!math_sys.isW(event.getLocation().getWorld())) {
+        if(!MathSys.isW(event.getLocation().getWorld())) {
             return;
         }
         removeBlocks(event.blockList());
@@ -34,14 +34,14 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPistonExtend(BlockPistonExtendEvent event) {
-        if(!math_sys.isW(event.getBlock().getWorld())) {
+        if(!MathSys.isW(event.getBlock().getWorld())) {
             return;
         }
-        if(math_sys.isroad(event.getBlock().getLocation())) {
+        if(MathSys.isroad(event.getBlock().getLocation())) {
             return;
         }
         for(Block block : event.getBlocks()) {
-            if(math_sys.isroad(block.getLocation())) {
+            if(MathSys.isroad(block.getLocation())) {
                 event.setCancelled(true);
             }
         }
@@ -49,14 +49,14 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPistonRetract(BlockPistonRetractEvent event) {
-        if(!math_sys.isW(event.getBlock().getWorld())) {
+        if(!MathSys.isW(event.getBlock().getWorld())) {
             return;
         }
-        if(math_sys.isroad(event.getBlock().getLocation())) {
+        if(MathSys.isroad(event.getBlock().getLocation())) {
             return;
         }
         for(Block block : event.getBlocks()) {
-            if(math_sys.isroad(block.getLocation())) {
+            if(MathSys.isroad(block.getLocation())) {
                 event.setCancelled(true);
             }
         }
@@ -64,7 +64,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onBEE(BlockExplodeEvent event) {
-        if(!math_sys.isW(event.getBlock().getLocation().getWorld())) {
+        if(!MathSys.isW(event.getBlock().getLocation().getWorld())) {
             return;
         }
         removeBlocks(event.blockList());
@@ -78,17 +78,17 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onLighting(LightningStrikeEvent event) {
-        if(!math_sys.isW(event.getWorld())) {
+        if(!MathSys.isW(event.getWorld())) {
             return;
         }
-        if(math_sys.isroad(event.getLightning().getLocation())) {
+        if(MathSys.isroad(event.getLightning().getLocation())) {
             event.setCancelled(true);
         }
-        if(!StorageMain.hasOwner(math_sys.getPlot(event.getLightning().getLocation()))) {
+        if(!StorageMain.hasOwner(MathSys.getPlot(event.getLightning().getLocation()))) {
             event.setCancelled(true);
             return;
         }
-        if(!StorageMain.getPlot(math_sys.getPlot(event.getLightning().getLocation())).isBooleanFlagSet("lightningstrike")) {
+        if(!StorageMain.getPlot(MathSys.getPlot(event.getLightning().getLocation())).isBooleanFlagSet("lightningstrike")) {
             event.setCancelled(true);
             return;
         }
@@ -99,16 +99,16 @@ public class EntityListener implements Listener {
         if(whitelist.contains(event.getVehicle().getType())) {
             return;
         }
-        if(!math_sys.isW(event.getTo().getWorld())) {
+        if(!MathSys.isW(event.getTo().getWorld())) {
             return;
         }
         if(event.getTo().getBlock().equals(event.getFrom().getBlock())) {
             return;
         }
-        if(math_sys.isroad(event.getFrom()) && math_sys.isroad(event.getTo())) {
+        if(MathSys.isroad(event.getFrom()) && MathSys.isroad(event.getTo())) {
             return;
         }
-        if(math_sys.isroad(event.getTo()) && (!math_sys.isroad(event.getFrom()))) {
+        if(MathSys.isroad(event.getTo()) && (!MathSys.isroad(event.getFrom()))) {
             Bukkit.getScheduler().runTaskLater(Plots.instance, () -> {
                 event.getVehicle().teleport(event.getFrom());
             }, 1);
@@ -117,22 +117,22 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
-        if(!math_sys.isW(event.getLocation().getWorld())) {
+        if(!MathSys.isW(event.getLocation().getWorld())) {
             return;
         }
         if(whitelist.contains(event.getEntityType())) {
             return;
         }
-        if(math_sys.isroad(event.getLocation())) {
+        if(MathSys.isroad(event.getLocation())) {
             event.setCancelled(true);
             return;
         }
-        if(!StorageMain.hasOwner(math_sys.getPlot(event.getLocation()))) {
+        if(!StorageMain.hasOwner(MathSys.getPlot(event.getLocation()))) {
             event.setCancelled(true);
             return;
         }
         if(event.getEntity().getEntitySpawnReason().equals(CreatureSpawnEvent.SpawnReason.NATURAL)) {
-            if(!StorageMain.getPlot(math_sys.getPlot(event.getLocation())).isBooleanFlagSet("mobspawn")) {
+            if(!StorageMain.getPlot(MathSys.getPlot(event.getLocation())).isBooleanFlagSet("mobspawn")) {
                 event.setCancelled(true);
                 return;
             }
@@ -144,11 +144,11 @@ public class EntityListener implements Listener {
     private static void removeBlocks(List<Block> bl) {
         bl.removeIf( p -> {
             boolean a = false;
-            if(!math_sys.isroad(p.getLocation())) {
-                if (!StorageMain.hasOwner(math_sys.getPlot(p.getLocation()))) {
+            if(!MathSys.isroad(p.getLocation())) {
+                if (!StorageMain.hasOwner(MathSys.getPlot(p.getLocation()))) {
                     a = true;
                 } else {
-                    Plot plot = StorageMain.getPlot(math_sys.getPlot(p.getLocation()));
+                    Plot plot = StorageMain.getPlot(MathSys.getPlot(p.getLocation()));
                     boolean ffound = false;
                     for (Plot.Flag flag : plot.getFlags()) {
                         if(flag.getName() == null) {
@@ -168,7 +168,7 @@ public class EntityListener implements Listener {
                     }
                 }
             }
-            boolean c = math_sys.isroad(p.getLocation()) || a;
+            boolean c = MathSys.isroad(p.getLocation()) || a;
             //   Bukkit.broadcastMessage(p.getLocation().toString()+"   "+c);
             return c;
         });
@@ -180,16 +180,16 @@ public class EntityListener implements Listener {
         if(whitelist.contains(event.getEntityType())) {
             return;
         }
-        if(!math_sys.isW(event.getTo().getWorld())) {
+        if(!MathSys.isW(event.getTo().getWorld())) {
             return;
         }
         if(event.getTo().getBlock().equals(event.getFrom().getBlock())) {
             return;
         }
-        if(math_sys.isroad(event.getFrom()) && math_sys.isroad(event.getTo())) {
+        if(MathSys.isroad(event.getFrom()) && MathSys.isroad(event.getTo())) {
             return;
         }
-        if(math_sys.isroad(event.getTo()) && (!math_sys.isroad(event.getFrom()))) {
+        if(MathSys.isroad(event.getTo()) && (!MathSys.isroad(event.getFrom()))) {
             event.setCancelled(true);
         }
     }
@@ -199,16 +199,16 @@ public class EntityListener implements Listener {
         if(whitelist.contains(event.getEntityType())) {
             return;
         }
-        if(!math_sys.isW(event.getTo().getWorld())) {
+        if(!MathSys.isW(event.getTo().getWorld())) {
             return;
         }
         if(event.getTo().getBlock().equals(event.getFrom().getBlock())) {
             return;
         }
-        if(math_sys.isroad(event.getFrom()) && math_sys.isroad(event.getTo())) {
+        if(MathSys.isroad(event.getFrom()) && MathSys.isroad(event.getTo())) {
             return;
         }
-        if(math_sys.isroad(event.getTo()) && (!math_sys.isroad(event.getFrom()))) {
+        if(MathSys.isroad(event.getTo()) && (!MathSys.isroad(event.getFrom()))) {
             event.setCancelled(true);
         }
     }

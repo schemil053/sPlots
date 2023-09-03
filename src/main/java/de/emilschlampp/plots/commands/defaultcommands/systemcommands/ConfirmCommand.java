@@ -9,8 +9,8 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
-public class confirm_command extends PlotSubCommand implements HelpCommandInterface {
-    public confirm_command() {
+public class ConfirmCommand extends PlotSubCommand implements HelpCommandInterface {
+    public ConfirmCommand() {
         super("confirm", "splots.confirm");
     }
 
@@ -39,7 +39,7 @@ public class confirm_command extends PlotSubCommand implements HelpCommandInterf
     }
 
     public static void confirm(Player player, Runnable task) {
-        if(!toggle_command.isValue(player.getUniqueId(), "confirm")) {
+        if(!ToggleCommand.isValue(player.getUniqueId(), "confirm")) {
             task.run();
             return;
         }
