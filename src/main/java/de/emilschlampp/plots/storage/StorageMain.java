@@ -1,6 +1,7 @@
 package de.emilschlampp.plots.storage;
 
 import de.emilschlampp.plots.Plots;
+import de.emilschlampp.plots.utils.EComList;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -124,6 +125,44 @@ public class StorageMain {
         return new Plot(Integer.parseInt(ss[0]), Integer.parseInt(ss[1]),
                 UUID.fromString(yamlConfiguration.getString("plot."+id+".owner")),
                 trusted, flags);
+    }
+
+    public static Plot getPlotMerged(String id) {
+        Plot plot = getPlot(id);
+
+        if(plot == null) {
+            return null;
+        }
+
+        Plot.Flag merged = plot.getFlag("merged");
+
+        if(merged == null) {
+            return plot;
+        }
+
+        EComList list = new EComList(merged.getValue());
+
+        int currX = plot.getX();
+        int currZ = plot.getZ();
+        for (String s : list.toList()) {
+            try {
+                if(getPlot(s) != null) {
+                    String[] sp = s.split(";");
+                    int xa = Integer.parseInt(sp[0]);
+                    int za = Integer.parseInt(sp[1]);
+                    if (currX > xa) {
+                        currX = xa;
+                    }
+                    if (currZ > za) {
+                        currZ = za;
+                    }
+                }
+            } catch (Throwable ignored) {
+                //Keine Fehler...
+            }
+        }
+
+        return getPlot(currX+";"+currZ);
     }
 
     private static List<String> destoList(List list) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EComList {
+    private final ArrayList<String> list = new ArrayList<>();
     public EComList(String s) {
         if(s.contains(", ")) {
             for (String a : s.split("\\,\\ ")) {
@@ -46,7 +47,6 @@ public class EComList {
         return a;
     }
 
-    private ArrayList<String> list = new ArrayList();
 
     public void add(String o) {
         if(!list.contains(o)) {
@@ -60,5 +60,9 @@ public class EComList {
 
     public void remove(String o) {
         while (list.remove(o));
+    }
+
+    public List<String> toList() {
+        return new ArrayList<>(list);
     }
 }

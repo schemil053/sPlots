@@ -15,10 +15,12 @@ public class PlotGenerator extends ChunkGenerator {
     public ChunkData generateChunkData(World world, Random random, int chunkX, int chunkZ, BiomeGrid biome) {
         ChunkData chunk = Bukkit.createChunkData(world);
 
+        int minHeight = world.getMinHeight();
+
         for (int xX = 0; xX < 16; xX++) {
             for (int zZ = 0; zZ < 16; zZ++) {
 
-                for (int i = 0; i < world.getMaxHeight(); i++) {
+                for (int i = minHeight; i < world.getMaxHeight(); i++) {
                     biome.setBiome(xX, i, zZ, Biome.PLAINS);
                 }
 
@@ -26,28 +28,27 @@ public class PlotGenerator extends ChunkGenerator {
                 int z = chunkZ * 16 + zZ;
                 Material m;
                 if (MathSys.isroad(x, z)) {
-                    for (int i = MathSys.pheight; i >= 0; i--) {
+                    for (int i = MathSys.pheight; i >= minHeight; i--) {
                         chunk.setBlock(xX, i, zZ, MathSys.STREET);
                     }
                     for (int xa : Arrays.asList(1, 0, -1)) {
                         for (int za : Arrays.asList(1, 0, -1)) {
                             if (!MathSys.isroad(x + xa, z + za)) {
                                 chunk.setBlock(xX, MathSys.pheight + 1, zZ, MathSys.BORDERBLOCK);
-                                for (int i = MathSys.pheight; i >= 0; i--) {
+                                for (int i = MathSys.pheight; i >= minHeight; i--) {
                                     chunk.setBlock(xX, i, zZ, MathSys.WALLBLOCK);
                                 }
                             }
                         }
                     }
                 } else {
-                    for (int i = MathSys.pheight; i >= 0; i--) {
+                    for (int i = MathSys.pheight; i >= minHeight; i--) {
                         chunk.setBlock(xX, i, zZ, MathSys.PLOTFLOOR);
                     }
                     chunk.setBlock(xX, MathSys.pheight, zZ, MathSys.PLOTFLOORTOP);
                 }
 
-                chunk.setBlock(xX, 0, zZ, Material.BEDROCK);
-
+                chunk.setBlock(xX, minHeight, zZ, Material.BEDROCK);
             }
         }
         return chunk;
